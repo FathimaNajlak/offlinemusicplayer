@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:podcastapp/screens/favourite_screen.dart';
-import 'package:podcastapp/screens/playlist_screen.dart';
-import 'package:podcastapp/screens/test.dart';
+import 'package:podcastapp/screens/playlist/playlist_screen.dart';
 import 'home/home.dart';
 
 final ValueNotifier<int> _currentIndex = ValueNotifier(0);
@@ -9,7 +8,11 @@ final ValueNotifier<int> _currentIndex = ValueNotifier(0);
 class BottomNaviScreen extends StatelessWidget {
   BottomNaviScreen({super.key});
 
-  final screen = [const ScreenHome(), MyFavoritesScreen(), PlaylistScreen()];
+  final screen = [
+    const ScreenHome(),
+    const MyFavoritesScreen(),
+    PlaylistScreen()
+  ];
 
   @override
   Widget build(BuildContext context) {
@@ -31,8 +34,8 @@ class BottomNaviScreen extends StatelessWidget {
           valueListenable: _currentIndex,
           builder: (BuildContext context, int updatedindex, child) {
             return BottomNavigationBar(
-              selectedItemColor: Colors.black54,
-              unselectedItemColor: Colors.black,
+              selectedItemColor: Colors.black,
+              unselectedItemColor: Colors.black54,
               currentIndex: updatedindex,
               backgroundColor: Colors.grey,
               onTap: (index) {

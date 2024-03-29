@@ -1,27 +1,26 @@
 import 'package:flutter/material.dart';
 import 'package:on_audio_query/on_audio_query.dart';
-import 'package:podcastapp/screens/nowplaying_screen.dart';
-import 'package:podcastapp/screens/splash_screen.dart';
+import 'package:podcastapp/Screens/splash_screen.dart';
+import 'package:podcastapp/functions/audio_converter_function.dart';
 import 'package:podcastapp/model/song_model.dart';
+import 'package:podcastapp/screens/nowplaying_screen.dart';
 
 class SearchScreen extends StatefulWidget {
-  const SearchScreen({
-    Key? key,
-  }) : super(key: key);
+  const SearchScreen({super.key});
 
   @override
   State<SearchScreen> createState() => _SearchScreenState();
 }
 
 class _SearchScreenState extends State<SearchScreen> {
-  List<AllSongModel> searchList = allSongs; // Initially set to allSongs
   TextEditingController searchController = TextEditingController();
-
+  List<AllSongModel> searchList = [];
+  // List<AllSongModel> allSongs = [];
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: Scaffold(
+    return Scaffold(
         appBar: AppBar(
+          automaticallyImplyLeading: false,
           backgroundColor: Colors.grey,
           shape: const RoundedRectangleBorder(
             borderRadius: BorderRadius.vertical(
@@ -30,103 +29,110 @@ class _SearchScreenState extends State<SearchScreen> {
           ),
           title: const Text(
             'Search',
-            style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
+            style: TextStyle(
+              color: Colors.black54,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+          leading: IconButton(
+            onPressed: () {
+              Navigator.pop(context);
+            },
+            icon: const Icon(
+              Icons.arrow_back,
+              size: 28,
+              color: Colors.black,
+            ),
           ),
         ),
-        body: Padding(
-          padding: const EdgeInsets.all(16),
-          child: Column(
-            children: [
-              Container(
+        body: Column(
+          children: [
+            Padding(
+              padding: const EdgeInsets.all(12.0),
+              child: Container(
                 decoration: BoxDecoration(
-                  color: const Color.fromARGB(255, 214, 210, 210),
-                  borderRadius: BorderRadius.circular(16),
+                  color: Colors.grey[300],
+                  borderRadius: BorderRadius.circular(10.0),
                 ),
                 child: TextField(
                   controller: searchController,
                   onChanged: (value) {
                     setState(() {
                       searchList = allSongs
-                          .where(
-                            (element) => element.name!.toLowerCase().contains(
-                                  value.toLowerCase(),
-                                ),
-                          )
+                          .where((element) => element.name!
+                              .toLowerCase()
+                              .contains(value.toLowerCase()))
                           .toList();
                     });
                   },
                   decoration: const InputDecoration(
                     hintText: 'Search...',
+                    contentPadding: EdgeInsets.symmetric(horizontal: 16.0),
                     border: InputBorder.none,
-                    contentPadding: EdgeInsets.all(16),
                   ),
                 ),
               ),
-              Expanded(
-                child: searchList.isEmpty
-                    ? Center(
-                        child: Text('No song found'),
-                      )
-                    : ListView.builder(
-                        itemCount: searchList.length,
-                        itemBuilder: (context, index) {
-                          final song = searchList[index];
-                          return GestureDetector(
-                            onTap: () {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) =>
-                                      const NowPlayingScreen(),
-                                ),
-                              );
-                            },
-                            child: ListTile(
-                              leading: ClipRRect(
-                                borderRadius: BorderRadius.circular(16),
-                                child: QueryArtworkWidget(
-                                  artworkClipBehavior: Clip.none,
-                                  artworkHeight: 70,
-                                  artworkWidth: 70,
-                                  nullArtworkWidget: Image.asset(
-                                    'assets/images/mostlyplayed.jpg',
-                                    fit: BoxFit.cover,
-                                    width: 70,
-                                    height: 70,
-                                  ),
-                                  id: song.id!,
-                                  type: ArtworkType.AUDIO,
+            ),
+            Expanded(
+              child: searchList.isEmpty
+                  ? const Center(
+                      child: Text('No results found'),
+                    )
+                  : ListView.separated(
+                      separatorBuilder: (context, index) {
+                        return const SizedBox(
+                          height: 10,
+                        );
+                      },
+                      physics: const NeverScrollableScrollPhysics(),
+                      shrinkWrap: true,
+                      itemCount: searchList.length,
+                      itemBuilder: (context, index) {
+                        final song = searchList.elementAt(index);
+                        return ListTile(
+                          onTap: () {
+                            audioConverter(searchList, index);
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => NowPlayingScreen(
+                                  song: song,
                                 ),
                               ),
-                              title: Text(song.name ?? 'name'),
-                              subtitle: Text(song.artist ?? 'Unknown Artist'),
-                              trailing: PopupMenuButton(
-                                itemBuilder: (BuildContext context) {
-                                  return [
-                                    const PopupMenuItem(
-                                      value: 1,
-                                      child: Text('Option 1'),
-                                    ),
-                                    const PopupMenuItem(
-                                      value: 2,
-                                      child: Text('Option 2'),
-                                    ),
-                                  ];
-                                },
-                                onSelected: (value) {
-                                  // Handle menu item selection here
-                                },
+                            );
+                          },
+                          leading: ClipRRect(
+                            borderRadius: BorderRadius.circular(16),
+                            child: QueryArtworkWidget(
+                              artworkClipBehavior: Clip.none,
+                              artworkHeight: 70,
+                              artworkWidth: 70,
+                              nullArtworkWidget: Image.asset(
+                                'assets/images/mostlyplayed.jpg',
+                                fit: BoxFit.cover,
+                                width: 70,
+                                height: 70,
                               ),
+                              id: song.id!,
+                              type: ArtworkType.AUDIO,
                             ),
-                          );
-                        },
-                      ),
-              )
-            ],
-          ),
-        ),
-        backgroundColor: const Color.fromARGB(255, 236, 232, 220),
-      ),
-    );
+                          ),
+                          title: Text(
+                            song.name ?? 'name',
+                            style: const TextStyle(
+                              fontWeight: FontWeight.bold,
+                            ),
+                            maxLines: 1,
+                          ),
+                          subtitle: Text(
+                            song.artist ?? 'Unknown Artist',
+                            maxLines: 1,
+                          ),
+                        );
+                      },
+                    ),
+            ),
+          ],
+        ));
   }
 }

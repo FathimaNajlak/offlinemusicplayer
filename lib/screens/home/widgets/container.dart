@@ -31,7 +31,7 @@ Container containerHome(
         ),
         Text(
           labelText,
-          style: TextStyle(fontWeight: FontWeight.bold),
+          style: const TextStyle(fontWeight: FontWeight.bold),
         )
       ],
     ),

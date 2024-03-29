@@ -1,5 +1,5 @@
 import 'package:hive/hive.dart';
-import 'package:podcastapp/screens/splash_screen.dart';
+import 'package:podcastapp/Screens/splash_screen.dart';
 import 'package:podcastapp/model/song_model.dart';
 
 List<AllSongModel> songsAddedInBox = [];

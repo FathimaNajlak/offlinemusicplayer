@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:hive_flutter/adapters.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:podcastapp/Screens/splash_screen.dart';
+import 'package:podcastapp/model/favourite_model.dart';
+import 'package:podcastapp/model/playlist_model.dart';
 
 import 'model/song_model.dart';
 
@@ -12,6 +14,13 @@ void main() async {
   if (!Hive.isAdapterRegistered(AllSongModelAdapter().typeId)) {
     Hive.registerAdapter(AllSongModelAdapter());
   }
+  if (!Hive.isAdapterRegistered(FavoriteModelAdapter().typeId)) {
+    Hive.registerAdapter(FavoriteModelAdapter());
+  }
+  if (!Hive.isAdapterRegistered(PlayListModelAdapter().typeId)) {
+    Hive.registerAdapter(PlayListModelAdapter());
+  }
+
   runApp(const MyApp());
 }
 

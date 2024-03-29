@@ -11,18 +11,18 @@ class SplashScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     wait(context);
     return Scaffold(
-      body: Container(
-          child: Center(
+      body: Center(
         child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
           Padding(
               padding: const EdgeInsets.only(bottom: 40),
               child: Image.asset(
-                'assets/images/mostlyplayed.jpg',
+                'assets/images/EchoPodsIcon.png',
                 height: 200,
                 width: 200,
               )),
         ]),
-      )),
+      ),
+      backgroundColor: const Color.fromARGB(255, 2, 22, 39),
     );
   }
 
