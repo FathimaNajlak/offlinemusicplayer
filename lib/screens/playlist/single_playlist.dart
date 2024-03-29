@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:on_audio_query/on_audio_query.dart';
 import 'package:podcastapp/Screens/splash_screen.dart';
 import 'package:podcastapp/functions/audio_converter_function.dart';
+import 'package:podcastapp/functions/favourite_functions.dart';
 import 'package:podcastapp/functions/playlist.dart';
 import 'package:podcastapp/model/playlist_model.dart';
 import 'package:podcastapp/screens/favourite_screen.dart';
@@ -142,7 +143,7 @@ class SinglePlayListScreen extends StatelessWidget {
                                               return [
                                                 PopupMenuItem(
                                                   value: 'favorites',
-                                                  child: favoriteSongsList
+                                                  child: favoriteNotifier.value
                                                           .contains(
                                                               allSongs[index])
                                                       ? const Text(

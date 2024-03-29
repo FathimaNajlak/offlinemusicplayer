@@ -1,6 +1,7 @@
 import 'dart:developer';
 import 'package:flutter/cupertino.dart';
 import 'package:hive/hive.dart';
+import 'package:podcastapp/Screens/splash_screen.dart';
 import 'package:podcastapp/model/song_model.dart';
 
 ValueNotifier<List<AllSongModel>> recentList = ValueNotifier([]);
@@ -12,6 +13,7 @@ recentadd(AllSongModel song) async {
   if (recentList.value.contains(song)) {
     recentList.value.remove(song);
     recentList.value.insert(0, song);
+    recentList.notifyListeners();
     for (int i = 0; i < temp.length; i++) {
       if (song.id == temp[i]) {
         recentDb.deleteAt(i);
@@ -27,4 +29,12 @@ recentadd(AllSongModel song) async {
     recentDb.deleteAt(0);
   }
   log(recentList.value.length.toString());
+}
+
+getRecent() async {
+  Box<int> recentDb = await Hive.openBox('recent');
+  recentList.value.clear();
+  recentList.value = allSongs
+      .where((element) => recentDb.values.contains(element.id!))
+      .toList();
 }

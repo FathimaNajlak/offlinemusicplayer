@@ -164,10 +164,10 @@ class _ScreenHomeState extends State<ScreenHome> {
                             return [
                               PopupMenuItem(
                                 value: 'favorites',
-                                child:
-                                    favoriteSongsList.contains(allSongs[index])
-                                        ? const Text('Remove from favorites')
-                                        : const Text('Add to favorites'),
+                                child: favoriteNotifier.value
+                                        .contains(allSongs[index])
+                                    ? const Text('Remove from favorites')
+                                    : const Text('Add to favorites'),
                               ),
                               const PopupMenuItem(
                                 value: 'playlist',
@@ -177,7 +177,8 @@ class _ScreenHomeState extends State<ScreenHome> {
                           },
                           onSelected: (String value) {
                             if (value == 'favorites') {
-                              if (favoriteSongsList.contains(allSongs[index])) {
+                              if (favoriteNotifier.value
+                                  .contains(allSongs[index])) {
                                 showDialog(
                                   context: context,
                                   builder: (BuildContext context) {

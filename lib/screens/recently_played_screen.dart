@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:on_audio_query/on_audio_query.dart';
 import 'package:podcastapp/functions/audio_converter_function.dart';
 import 'package:podcastapp/functions/favourite_functions.dart';
+import 'package:podcastapp/functions/mostly_played.dart';
 import 'package:podcastapp/functions/recently_played.dart';
-import 'package:podcastapp/screens/favourite_screen.dart';
 import 'package:podcastapp/screens/mini_player.dart';
 import 'package:podcastapp/screens/nowplaying_screen.dart';
 import 'package:podcastapp/screens/splash_screen.dart';
@@ -75,6 +75,8 @@ class RecentlyPlayedScreen extends StatelessWidget {
                                 Expanded(
                                   child: InkWell(
                                     onTap: () {
+                                      recentadd(recentList.value[index]);
+                                      mostplayedadd(recentList.value[index]);
                                       audioConverter(recentList.value, index);
                                       Navigator.push(
                                         context,
@@ -116,9 +118,9 @@ class RecentlyPlayedScreen extends StatelessWidget {
                                             return [
                                               PopupMenuItem(
                                                 value: 'favorites',
-                                                child: favoriteSongsList
-                                                        .contains(
-                                                            allSongs[index])
+                                                child: favoriteNotifier.value
+                                                        .contains(recentList
+                                                            .value[index])
                                                     ? const Text(
                                                         'Remove from favorites')
                                                     : const Text(
@@ -131,9 +133,11 @@ class RecentlyPlayedScreen extends StatelessWidget {
                                             ];
                                           },
                                           onSelected: (String value) {
+                                            print(value);
                                             if (value == 'favorites') {
-                                              if (favoriteSongsList
-                                                  .contains(allSongs[index])) {
+                                              if (favoriteNotifier.value
+                                                  .contains(recentList
+                                                      .value[index])) {
                                                 showDialog(
                                                   context: context,
                                                   builder:
@@ -200,8 +204,8 @@ class RecentlyPlayedScreen extends StatelessWidget {
                                                   },
                                                 );
                                               } else {
-                                                addToFavorites(
-                                                    allSongs[index].id!);
+                                                addToFavorites(recentList
+                                                    .value[index].id!);
                                                 ScaffoldMessenger.of(context)
                                                     .showSnackBar(
                                                   SnackBar(

@@ -1,27 +1,30 @@
+import 'dart:async';
 import 'dart:developer';
+import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
 import 'package:podcastapp/Screens/splash_screen.dart';
 import 'package:podcastapp/model/favourite_model.dart';
+import 'package:podcastapp/model/song_model.dart';
 import 'package:podcastapp/screens/favourite_screen.dart';
 
-// ValueNotifier<List<AllSongModel>> fav = ValueNotifier([]);
+ValueNotifier<List<AllSongModel>> favoriteNotifier = ValueNotifier([]);
 
 addToFavorites(int id) async {
   final favDB = await Hive.openBox<FavoriteModel>('fav_DB');
-  if (favoriteSongsList.any((element) => element.id == id)) {
+  if (favoriteNotifier.value.any((element) => element.id == id)) {
     log('Song with ID $id is already in favorites.');
     return;
   }
   await favDB.put(id, FavoriteModel(id: id));
-  favoriteSongsList.clear();
-  for (var elements in allSongs) {
-    if (elements.id == id) {
-      favoriteSongsList.add(elements);
-      break;
-    }
-  }
+  // for (var elements in allSongs) {
+  //   if (elements.id == id) {
+  //     favoriteNotifier.value.add(elements);
+  //     break;
+  //   }
+  // }
+  favfetch();
   log(favDB.values.length.toString());
-  log("======================================================${favoriteSongsList.length.toString()}");
+  log("======================================================${favoriteNotifier.value.length.toString()}");
 }
 
 Future<void> removeFromFav(int id) async {
@@ -29,30 +32,27 @@ Future<void> removeFromFav(int id) async {
   await favDB.delete(id);
   // for (var element in allSongs) {
   //   if (element.id == id) {
-  //     favoriteSongsList.remove(element);
+  //     favoriteNotifier.value.remove(element);
   //   }
   // }
-  favoriteSongsList.removeWhere((song) => song.id == id);
+  favoriteNotifier.value.removeWhere((song) => song.id == id);
   // ignore: invalid_use_of_protected_member, invalid_use_of_visible_for_testing_member
   // fav.notifyListeners();
 }
 
 favfetch() async {
-  List<FavoriteModel> favsongcheck = [];
+  List<int> favoriteSongIds = [];
   Box<FavoriteModel> favdb = await Hive.openBox<FavoriteModel>('fav_DB');
-  favsongcheck.addAll(favdb.values);
-  log(favdb.values.length.toString());
-  for (var favs in favsongcheck) {
-    for (var songs in allSongs) {
-      if (favs.id == songs.id) {
-        favoriteSongsList.add(songs);
-      }
-    }
-  }
+  favoriteSongIds.addAll(favdb.values.map((e) => e.id!).toList());
+  List<AllSongModel> favoriteSongsList = allSongs.where((song) {
+    return favoriteSongIds.contains(song.id);
+  }).toList();
+  favoriteNotifier.value.clear();
+  favoriteNotifier.value = favoriteSongsList;
 }
 
 bool favoriteChecking(int data) {
-  for (var element in favoriteSongsList) {
+  for (var element in favoriteNotifier.value) {
     if (data == element.id) {
       return true;
     }

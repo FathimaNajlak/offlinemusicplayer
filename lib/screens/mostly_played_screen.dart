@@ -4,6 +4,7 @@ import 'package:podcastapp/Screens/splash_screen.dart';
 import 'package:podcastapp/functions/audio_converter_function.dart';
 import 'package:podcastapp/functions/favourite_functions.dart';
 import 'package:podcastapp/functions/mostly_played.dart';
+import 'package:podcastapp/functions/recently_played.dart';
 import 'package:podcastapp/screens/favourite_screen.dart';
 import 'package:podcastapp/screens/mini_player.dart';
 import 'package:podcastapp/screens/nowplaying_screen.dart';
@@ -43,7 +44,7 @@ class MostlyPlayedScreen extends StatelessWidget {
                 valueListenable: mostPlayedList,
                 builder: (context, value, child) {
                   if (mostPlayedList.value.isEmpty) {
-                    return Center(
+                    return const Center(
                       child: Text('please play some songs...'),
                     );
                   } else {
@@ -74,6 +75,8 @@ class MostlyPlayedScreen extends StatelessWidget {
                                 Expanded(
                                   child: InkWell(
                                     onTap: () {
+                                      recentadd(allSongs[index]);
+                                      mostplayedadd(allSongs[index]);
                                       audioConverter(
                                           mostPlayedList.value, index);
                                       Navigator.push(
@@ -117,7 +120,7 @@ class MostlyPlayedScreen extends StatelessWidget {
                                             return [
                                               PopupMenuItem(
                                                 value: 'favorites',
-                                                child: favoriteSongsList
+                                                child: favoriteNotifier.value
                                                         .contains(
                                                             allSongs[index])
                                                     ? const Text(
@@ -133,7 +136,7 @@ class MostlyPlayedScreen extends StatelessWidget {
                                           },
                                           onSelected: (String value) {
                                             if (value == 'favorites') {
-                                              if (favoriteSongsList
+                                              if (favoriteNotifier.value
                                                   .contains(allSongs[index])) {
                                                 showDialog(
                                                   context: context,

@@ -17,6 +17,14 @@ class _SearchScreenState extends State<SearchScreen> {
   List<AllSongModel> searchList = [];
   // List<AllSongModel> allSongs = [];
   @override
+  void initState() {
+    // TODO: implement initState
+    searchList = allSongs;
+    setState(() {});
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
@@ -58,6 +66,10 @@ class _SearchScreenState extends State<SearchScreen> {
                   controller: searchController,
                   onChanged: (value) {
                     setState(() {
+                      if (value.isEmpty) {
+                        searchList = allSongs;
+                        return;
+                      }
                       searchList = allSongs
                           .where((element) => element.name!
                               .toLowerCase()

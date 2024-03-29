@@ -194,7 +194,7 @@ class _NowPlayingScreenState extends State<NowPlayingScreen> {
                               int.parse(playing.audio.audio.metas.id!),
                             );
                             setState(() {
-                              // isFavorite = !isFavorite;
+                              isFavorite = !checking;
                               if (checking == true) {
                                 removeFromFav(
                                     int.parse(playing.audio.audio.metas.id!));
