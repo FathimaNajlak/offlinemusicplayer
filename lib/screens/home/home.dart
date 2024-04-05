@@ -168,6 +168,8 @@ class _ScreenHomeState extends State<ScreenHome> {
                                 },
                                 onSelected: (String value) {
                                   if (value == 'favorites') {
+                                    print(favoriteNotifier.value
+                                        .contains(allSongs[index]));
                                     if (favoriteNotifier.value
                                         .contains(allSongs[index])) {
                                       showDialog(

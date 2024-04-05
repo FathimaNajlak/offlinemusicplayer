@@ -4,6 +4,7 @@ import 'package:marquee/marquee.dart';
 import 'package:on_audio_query/on_audio_query.dart';
 import 'package:podcastapp/functions/audio_converter_function.dart';
 import 'package:podcastapp/functions/recently_played.dart';
+import 'package:podcastapp/model/song_model.dart';
 import 'package:podcastapp/screens/splash_screen.dart';
 import 'nowplaying_screen.dart';
 
@@ -23,17 +24,11 @@ class MiniPlayerState extends State<MiniPlayer> {
       builder: (context, playing) {
         int currentId = int.parse(playing.audio.audio.metas.id!);
         for (var element in allSongs) {
+          print("object");
           if (element.id == currentId) {
             recentadd(element);
           }
         }
-        // for (var i = 0; i < allSongs.length; i++) {
-        //   if (allSongs[i].id == currentId) {
-        //     recentadd(allSongs[i]);
-        //     index = i; // Update the index here
-        //     break; // Exit the loop once the current song is found
-        //   }
-        // }
 
         return Padding(
           padding: const EdgeInsets.all(6),
@@ -47,11 +42,18 @@ class MiniPlayerState extends State<MiniPlayer> {
             width: MediaQuery.of(context).size.width,
             child: InkWell(
               onTap: () {
+                print(playing.audio.audio.metas.id);
+                final song = playing.audio.audio.metas;
                 Navigator.of(context).push(
                   MaterialPageRoute(
                     builder: (ctx) => NowPlayingScreen(
-                      song: allSongs[index],
-                      songId: allSongs[index].id!,
+                      song: AllSongModel(
+                          name: song.title,
+                          artist: song.artist,
+                          duration: playing.audio.duration.inSeconds,
+                          id: int.parse(song.id!),
+                          uri: playing.audio.audio.path),
+                      songId: int.parse(playing.audio.audio.metas.id!),
                     ),
                   ),
                 );
@@ -86,6 +88,7 @@ class MiniPlayerState extends State<MiniPlayer> {
                           IconButton(
                             onPressed: () async {
                               await assetsAudioPlayer.previous();
+
                               setState(() {});
                               if (isPlaying == false) {
                                 assetsAudioPlayer.pause();

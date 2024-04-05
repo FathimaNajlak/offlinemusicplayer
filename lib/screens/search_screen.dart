@@ -110,6 +110,7 @@ class _SearchScreenState extends State<SearchScreen> {
                             audioConverter(searchList, index);
 
                             recentadd(searchList[index]);
+                            mostplayedadd(searchList[index]);
 
                             Navigator.push(
                               context,

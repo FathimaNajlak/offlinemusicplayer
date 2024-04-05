@@ -30,6 +30,17 @@ recentadd(AllSongModel song) async {
   }
 }
 
+// void recentadd(AllSongModel song) async {
+//   final Box<int> recentDb = await Hive.openBox('recent');
+//   recentDb.put(song.id as int, song.id!);
+
+//   recentlyPlayedNotifier.value.insert(0, song);
+
+//   if (recentlyPlayedNotifier.value.length > 10) {
+//     recentlyPlayedNotifier.value = recentlyPlayedNotifier.value.sublist(0, 10);
+//   }
+// }
+
 getRecent() async {
   Box<int> recentDb = await Hive.openBox('recent');
   recentlyPlayedNotifier.value.clear();

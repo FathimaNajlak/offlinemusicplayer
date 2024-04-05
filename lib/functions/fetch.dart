@@ -2,7 +2,7 @@ import 'package:hive/hive.dart';
 import 'package:on_audio_query/on_audio_query.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:podcastapp/Screens/splash_screen.dart';
-import 'package:podcastapp/model/add_song.dart';
+import 'package:podcastapp/functions/add_song.dart';
 import 'package:podcastapp/model/song_model.dart';
 
 final OnAudioQuery audioquerry = OnAudioQuery();

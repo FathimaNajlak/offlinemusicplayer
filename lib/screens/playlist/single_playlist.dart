@@ -9,7 +9,7 @@ import 'package:podcastapp/screens/mini_player.dart';
 import 'package:podcastapp/screens/nowplaying_screen.dart';
 
 // ignore: must_be_immutable
-class SinglePlayListScreen extends StatelessWidget {
+class SinglePlayListScreen extends StatefulWidget {
   String playlistname;
   final int idx;
   final PlayListModel listIndex;
@@ -21,7 +21,13 @@ class SinglePlayListScreen extends StatelessWidget {
   });
 
   @override
+  State<SinglePlayListScreen> createState() => _SinglePlayListScreenState();
+}
+
+class _SinglePlayListScreenState extends State<SinglePlayListScreen> {
+  @override
   Widget build(BuildContext context) {
+    print(playlistnotifier.value[0].playlist?[0].id);
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
@@ -42,7 +48,7 @@ class SinglePlayListScreen extends StatelessWidget {
             ),
           ),
           title: Text(
-            playlistname,
+            widget.playlistname,
             style: const TextStyle(
               color: Colors.black,
               fontWeight: FontWeight.bold,
@@ -51,7 +57,7 @@ class SinglePlayListScreen extends StatelessWidget {
           actions: [
             IconButton(
               onPressed: () {
-                showPlaylistSheet(context, playlistname);
+                showPlaylistSheet(context, widget.playlistname);
               },
               icon: const Icon(Icons.add),
               color: Colors.black,
@@ -65,14 +71,15 @@ class SinglePlayListScreen extends StatelessWidget {
             return Row(
               children: [
                 Expanded(
-                  child: playlistnotifier.value[idx].playlist?.isEmpty ?? true
+                  child: playlistnotifier.value[widget.idx].playlist?.isEmpty ??
+                          true
                       ? const Center(
                           child: Text('please add some songs'),
                         )
                       : ListView.builder(
                           itemBuilder: (context, index) {
-                            final data =
-                                playlistnotifier.value[idx].playlist![index];
+                            final data = playlistnotifier
+                                .value[widget.idx].playlist![index];
                             return Padding(
                               padding: const EdgeInsets.all(8.0),
                               child: Row(
@@ -89,8 +96,8 @@ class SinglePlayListScreen extends StatelessWidget {
                                         width: 70,
                                         height: 70,
                                       ),
-                                      id: playlistnotifier
-                                          .value[idx].playlist![index].id!,
+                                      id: playlistnotifier.value[widget.idx]
+                                          .playlist![index].id!,
                                       type: ArtworkType.AUDIO,
                                     ),
                                   ),
@@ -99,13 +106,14 @@ class SinglePlayListScreen extends StatelessWidget {
                                     child: InkWell(
                                       onTap: () {
                                         audioConverter(
-                                            listIndex.playlist!, index);
+                                            widget.listIndex.playlist!, index);
                                         Navigator.of(context).push(
                                           MaterialPageRoute(
                                             builder: (context) =>
                                                 NowPlayingScreen(
-                                              song: listIndex.playlist![index],
-                                              songId: listIndex
+                                              song: widget
+                                                  .listIndex.playlist![index],
+                                              songId: widget.listIndex
                                                   .playlist![index].id!,
                                             ),
                                           ),
@@ -121,7 +129,7 @@ class SinglePlayListScreen extends StatelessWidget {
                                         ),
                                         child: ListTile(
                                           title: Text(
-                                            playlistnotifier.value[idx]
+                                            playlistnotifier.value[widget.idx]
                                                     .playlist![index].name ??
                                                 "song name",
                                             maxLines: 1,
@@ -129,7 +137,7 @@ class SinglePlayListScreen extends StatelessWidget {
                                                 fontWeight: FontWeight.bold),
                                           ),
                                           subtitle: Text(
-                                            playlistnotifier.value[idx]
+                                            playlistnotifier.value[widget.idx]
                                                     .playlist![index].artist ??
                                                 'unknown',
                                             maxLines: 1,
@@ -144,13 +152,8 @@ class SinglePlayListScreen extends StatelessWidget {
                                               return [
                                                 PopupMenuItem(
                                                   value: 'favorites',
-                                                  child: favoriteNotifier.value
-                                                          .contains(
-                                                              playlistnotifier
-                                                                  .value[index]
-                                                                  .playlist![
-                                                                      index]
-                                                                  .id!)
+                                                  child: favoriteChecking(
+                                                          data.id!)
                                                       ? const Text(
                                                           'Remove from favorites')
                                                       : const Text(
@@ -165,9 +168,10 @@ class SinglePlayListScreen extends StatelessWidget {
                                             },
                                             onSelected: (String value) {
                                               if (value == 'favorites') {
-                                                if (favoriteNotifier.value
-                                                    .contains(playlistnotifier
-                                                        .value[index])) {
+                                                print(
+                                                    favoriteChecking(data.id!));
+                                                if (favoriteChecking(
+                                                    data.id!)) {
                                                   showDialog(
                                                     context: context,
                                                     builder:
@@ -195,8 +199,8 @@ class SinglePlayListScreen extends StatelessWidget {
                                                             onPressed: () {
                                                               removeFromFav(
                                                                   playlistnotifier
-                                                                      .value[
-                                                                          index]
+                                                                      .value[widget
+                                                                          .idx]
                                                                       .playlist![
                                                                           index]
                                                                       .id!);
@@ -240,7 +244,7 @@ class SinglePlayListScreen extends StatelessWidget {
                                                 } else {
                                                   addToFavorites(
                                                       playlistnotifier
-                                                          .value[index]
+                                                          .value[widget.idx]
                                                           .playlist![index]
                                                           .id!);
                                                   ScaffoldMessenger.of(context)
@@ -291,8 +295,9 @@ class SinglePlayListScreen extends StatelessWidget {
                                                           onPressed: () {
                                                             removeSongFromPlaylistAndNotify(
                                                                 data,
-                                                                playlistname,
-                                                                idx);
+                                                                widget
+                                                                    .playlistname,
+                                                                widget.idx);
                                                             Navigator.of(
                                                                     context)
                                                                 .pop();
@@ -319,8 +324,8 @@ class SinglePlayListScreen extends StatelessWidget {
                               ),
                             );
                           },
-                          itemCount:
-                              playlistnotifier.value[idx].playlist!.length,
+                          itemCount: playlistnotifier
+                              .value[widget.idx].playlist!.length,
                         ),
                 ),
               ],
