@@ -5,7 +5,6 @@ import 'package:podcastapp/functions/audio_converter_function.dart';
 import 'package:podcastapp/functions/favourite_functions.dart';
 import 'package:podcastapp/functions/playlist.dart';
 import 'package:podcastapp/model/playlist_model.dart';
-import 'package:podcastapp/screens/favourite_screen.dart';
 import 'package:podcastapp/screens/mini_player.dart';
 import 'package:podcastapp/screens/nowplaying_screen.dart';
 
@@ -106,6 +105,8 @@ class SinglePlayListScreen extends StatelessWidget {
                                             builder: (context) =>
                                                 NowPlayingScreen(
                                               song: listIndex.playlist![index],
+                                              songId: listIndex
+                                                  .playlist![index].id!,
                                             ),
                                           ),
                                         );
@@ -145,7 +146,11 @@ class SinglePlayListScreen extends StatelessWidget {
                                                   value: 'favorites',
                                                   child: favoriteNotifier.value
                                                           .contains(
-                                                              allSongs[index])
+                                                              playlistnotifier
+                                                                  .value[index]
+                                                                  .playlist![
+                                                                      index]
+                                                                  .id!)
                                                       ? const Text(
                                                           'Remove from favorites')
                                                       : const Text(
@@ -160,7 +165,104 @@ class SinglePlayListScreen extends StatelessWidget {
                                             },
                                             onSelected: (String value) {
                                               if (value == 'favorites') {
-                                                // Code for handling the favorites option
+                                                if (favoriteNotifier.value
+                                                    .contains(playlistnotifier
+                                                        .value[index])) {
+                                                  showDialog(
+                                                    context: context,
+                                                    builder:
+                                                        (BuildContext context) {
+                                                      return AlertDialog(
+                                                        title: const Text(
+                                                            'Confirmation'),
+                                                        content: const Text(
+                                                            'Are you sure you want to remove the song from favorites?'),
+                                                        actions: [
+                                                          TextButton(
+                                                            onPressed: () {
+                                                              Navigator.of(
+                                                                      context)
+                                                                  .pop();
+                                                            },
+                                                            child: const Text(
+                                                              'Cancel',
+                                                              style: TextStyle(
+                                                                  color: Colors
+                                                                      .black),
+                                                            ),
+                                                          ),
+                                                          TextButton(
+                                                            onPressed: () {
+                                                              removeFromFav(
+                                                                  playlistnotifier
+                                                                      .value[
+                                                                          index]
+                                                                      .playlist![
+                                                                          index]
+                                                                      .id!);
+                                                              Navigator.of(
+                                                                      context)
+                                                                  .pop();
+                                                              ScaffoldMessenger
+                                                                      .of(context)
+                                                                  .showSnackBar(
+                                                                SnackBar(
+                                                                  content:
+                                                                      const Text(
+                                                                    'Song is removed from favorites successfully',
+                                                                    style: TextStyle(
+                                                                        color: Colors
+                                                                            .black),
+                                                                  ),
+                                                                  backgroundColor:
+                                                                      Colors
+                                                                          .red,
+                                                                  shape:
+                                                                      RoundedRectangleBorder(
+                                                                    borderRadius:
+                                                                        BorderRadius
+                                                                            .circular(8),
+                                                                  ),
+                                                                ),
+                                                              );
+                                                            },
+                                                            child: const Text(
+                                                              'Remove',
+                                                              style: TextStyle(
+                                                                  color: Colors
+                                                                      .black),
+                                                            ),
+                                                          ),
+                                                        ],
+                                                      );
+                                                    },
+                                                  );
+                                                } else {
+                                                  addToFavorites(
+                                                      playlistnotifier
+                                                          .value[index]
+                                                          .playlist![index]
+                                                          .id!);
+                                                  ScaffoldMessenger.of(context)
+                                                      .showSnackBar(
+                                                    SnackBar(
+                                                      content: const Text(
+                                                        'Song added to favorites successfully',
+                                                        style: TextStyle(
+                                                            color:
+                                                                Colors.black),
+                                                      ),
+                                                      backgroundColor:
+                                                          Colors.green,
+                                                      shape:
+                                                          RoundedRectangleBorder(
+                                                        borderRadius:
+                                                            BorderRadius
+                                                                .circular(8),
+                                                      ),
+                                                    ),
+                                                  );
+                                                }
                                               } else if (value == 'delete') {
                                                 showDialog(
                                                   context: context,

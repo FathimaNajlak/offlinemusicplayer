@@ -2,8 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:on_audio_query/on_audio_query.dart';
 import 'package:podcastapp/Screens/splash_screen.dart';
 import 'package:podcastapp/functions/audio_converter_function.dart';
+import 'package:podcastapp/functions/favourite_functions.dart';
+import 'package:podcastapp/functions/mostly_played.dart';
+import 'package:podcastapp/functions/recently_played.dart';
 import 'package:podcastapp/model/song_model.dart';
 import 'package:podcastapp/screens/nowplaying_screen.dart';
+import 'package:podcastapp/screens/playlist/add_to_playlist.dart';
 
 class SearchScreen extends StatefulWidget {
   const SearchScreen({super.key});
@@ -15,7 +19,7 @@ class SearchScreen extends StatefulWidget {
 class _SearchScreenState extends State<SearchScreen> {
   TextEditingController searchController = TextEditingController();
   List<AllSongModel> searchList = [];
-  // List<AllSongModel> allSongs = [];
+
   @override
   void initState() {
     // TODO: implement initState
@@ -104,11 +108,15 @@ class _SearchScreenState extends State<SearchScreen> {
                         return ListTile(
                           onTap: () {
                             audioConverter(searchList, index);
+
+                            recentadd(searchList[index]);
+
                             Navigator.push(
                               context,
                               MaterialPageRoute(
                                 builder: (context) => NowPlayingScreen(
                                   song: song,
+                                  songId: song.id!,
                                 ),
                               ),
                             );
@@ -139,6 +147,107 @@ class _SearchScreenState extends State<SearchScreen> {
                           subtitle: Text(
                             song.artist ?? 'Unknown Artist',
                             maxLines: 1,
+                          ),
+                          trailing: PopupMenuButton(
+                            icon: const Icon(
+                              Icons.more_vert,
+                              size: 20,
+                              color: Colors.black,
+                            ),
+                            itemBuilder: (BuildContext context) {
+                              return [
+                                PopupMenuItem(
+                                  value: 'favorites',
+                                  child: favoriteNotifier.value
+                                          .contains(searchList[index])
+                                      ? const Text('Remove from favorites')
+                                      : const Text('Add to favorites'),
+                                ),
+                                const PopupMenuItem(
+                                  value: 'playlist',
+                                  child: Text('Add to playlist'),
+                                ),
+                              ];
+                            },
+                            onSelected: (String value) {
+                              if (value == 'favorites') {
+                                if (favoriteNotifier.value
+                                    .contains(searchList[index])) {
+                                  showDialog(
+                                    context: context,
+                                    builder: (BuildContext context) {
+                                      return AlertDialog(
+                                        title: const Text('Confirmation'),
+                                        content: const Text(
+                                            'Are you sure you want to remove the song from favorites?'),
+                                        actions: [
+                                          TextButton(
+                                            onPressed: () {
+                                              Navigator.of(context).pop();
+                                            },
+                                            child: const Text(
+                                              'Cancel',
+                                              style: TextStyle(
+                                                  color: Colors.black),
+                                            ),
+                                          ),
+                                          TextButton(
+                                            onPressed: () {
+                                              removeFromFav(
+                                                  searchList[index].id!);
+                                              Navigator.of(context).pop();
+                                              ScaffoldMessenger.of(context)
+                                                  .showSnackBar(
+                                                SnackBar(
+                                                  content: const Text(
+                                                    'Song is removed from favorites successfully',
+                                                    style: TextStyle(
+                                                        color: Colors.black),
+                                                  ),
+                                                  backgroundColor: Colors.red,
+                                                  shape: RoundedRectangleBorder(
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            8),
+                                                  ),
+                                                ),
+                                              );
+                                            },
+                                            child: const Text(
+                                              'Remove',
+                                              style: TextStyle(
+                                                  color: Colors.black),
+                                            ),
+                                          ),
+                                        ],
+                                      );
+                                    },
+                                  );
+                                } else {
+                                  addToFavorites(searchList[index].id!);
+                                  ScaffoldMessenger.of(context).showSnackBar(
+                                    SnackBar(
+                                      content: const Text(
+                                        'Song added to favorites successfully',
+                                        style: TextStyle(color: Colors.black),
+                                      ),
+                                      backgroundColor: Colors.green,
+                                      shape: RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.circular(8),
+                                      ),
+                                    ),
+                                  );
+                                }
+                              } else if (value == 'playlist') {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => AddToPlaylistsScreen(
+                                        song: searchList[index]),
+                                  ),
+                                );
+                              }
+                            },
                           ),
                         );
                       },

@@ -5,7 +5,7 @@ import 'package:podcastapp/screens/mini_player.dart';
 
 class AddToPlaylistsScreen extends StatefulWidget {
   final AllSongModel song;
-  const AddToPlaylistsScreen({Key? key, required this.song}) : super(key: key);
+  const AddToPlaylistsScreen({super.key, required this.song});
 
   @override
   State<AddToPlaylistsScreen> createState() => _AddToPlaylistsScreenState();

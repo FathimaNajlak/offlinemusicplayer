@@ -41,7 +41,7 @@ class AboutUsScreen extends StatelessWidget {
             ),
             SizedBox(height: 16),
             Text(
-              'At MeloVibe, we are dedicated to providing music enthusiasts with a unique and immersive offline music player experience. Our app, built using Flutter, combines cutting-edge technology with a passion for music to deliver a seamless and personalized music journey. With Echopods, you can explore and enjoy your favorite songs, discover new tracks, and enhance your music experience in ways you never thought possible.',
+              'At Echopods, we are dedicated to providing music enthusiasts with a unique and immersive offline music player experience. Our app, built using Flutter, combines cutting-edge technology with a passion for music to deliver a seamless and personalized music journey. With Echopods, you can explore and enjoy your favorite songs, discover new tracks, and enhance your music experience in ways you never thought possible.',
               style: TextStyle(
                 fontSize: 18,
               ),
@@ -71,7 +71,7 @@ class AboutUsScreen extends StatelessWidget {
             ),
             SizedBox(height: 8),
             Text(
-              '1. Adjustable Playback Speed: Customize your listening experience with the adjustable playback speed feature. Whether you want to slow down a fast-paced track or speed up a slow ballad, Echopods lets you control the tempo to match your preferences.',
+              '1. ',
               style: TextStyle(
                 fontSize: 18,
               ),
@@ -80,7 +80,7 @@ class AboutUsScreen extends StatelessWidget {
               height: 8,
             ),
             Text(
-              '2. Offline Playback: Embrace the freedom of offline music with Echopods. Download your favorite songs, albums, or playlists to your device and enjoy them anytime, anywhere, even without an internet connection. Whether you\'re on a long flight, commuting underground, or in an area with limited network coverage, your music is always accessible.',
+              '2.',
               style: TextStyle(
                 fontSize: 18,
               ),
@@ -89,7 +89,7 @@ class AboutUsScreen extends StatelessWidget {
               height: 8,
             ),
             Text(
-              '3. Cross-Platform Sync: Seamlessly synchronize your music library and preferences across multiple devices. Whether you\'re using Echopods on your smartphone, tablet, or computer, your music collection and personalized settings stay in perfect harmony, giving you a consistent and seamless experience.',
+              '3.',
               style: TextStyle(
                 fontSize: 18,
               ),
@@ -98,7 +98,7 @@ class AboutUsScreen extends StatelessWidget {
               height: 8,
             ),
             Text(
-              '4. Personalized Recommendations: Discover new music tailored to your taste with our personalized recommendations. Echopods analyzes your listening habits, genre preferences, and song history to suggest artists, albums, and tracks that align with your musical interests, helping you expand your music horizons.',
+              '4.',
               style: TextStyle(
                 fontSize: 18,
               ),

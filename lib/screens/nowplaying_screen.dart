@@ -11,8 +11,9 @@ import 'package:podcastapp/screens/playlist/add_to_playlist.dart';
 // ignore: must_be_immutable
 class NowPlayingScreen extends StatefulWidget {
   final AllSongModel song;
+  final int songId;
 
-  const NowPlayingScreen({super.key, required this.song});
+  const NowPlayingScreen({super.key, required this.song, required this.songId});
   @override
   State<NowPlayingScreen> createState() => _NowPlayingScreenState();
 }
@@ -23,6 +24,12 @@ class _NowPlayingScreenState extends State<NowPlayingScreen> {
   bool isFavorite = false;
 
   double progress = 0.5;
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    isFavorite = favoriteChecking(widget.song.id!);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -191,7 +198,9 @@ class _NowPlayingScreenState extends State<NowPlayingScreen> {
                         IconButton(
                           onPressed: () {
                             bool checking = favoriteChecking(
-                              int.parse(playing.audio.audio.metas.id!),
+                              int.parse(
+                                playing.audio.audio.metas.id!,
+                              ),
                             );
                             setState(() {
                               isFavorite = !checking;

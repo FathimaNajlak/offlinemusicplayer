@@ -8,7 +8,7 @@ import 'package:podcastapp/screens/splash_screen.dart';
 import 'nowplaying_screen.dart';
 
 class MiniPlayer extends StatefulWidget {
-  const MiniPlayer({Key? key}) : super(key: key);
+  const MiniPlayer({super.key});
 
   @override
   State<MiniPlayer> createState() => MiniPlayerState();
@@ -27,6 +27,13 @@ class MiniPlayerState extends State<MiniPlayer> {
             recentadd(element);
           }
         }
+        // for (var i = 0; i < allSongs.length; i++) {
+        //   if (allSongs[i].id == currentId) {
+        //     recentadd(allSongs[i]);
+        //     index = i; // Update the index here
+        //     break; // Exit the loop once the current song is found
+        //   }
+        // }
 
         return Padding(
           padding: const EdgeInsets.all(6),
@@ -44,6 +51,7 @@ class MiniPlayerState extends State<MiniPlayer> {
                   MaterialPageRoute(
                     builder: (ctx) => NowPlayingScreen(
                       song: allSongs[index],
+                      songId: allSongs[index].id!,
                     ),
                   ),
                 );

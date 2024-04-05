@@ -4,6 +4,7 @@ Container containerHome(
   BuildContext context,
   String labelText,
   Widget screenToNavigate,
+  String imagePath,
 ) {
   return Container(
     padding: const EdgeInsets.all(16.0),
@@ -19,7 +20,7 @@ Container containerHome(
               ),
             ),
             child: Image.asset(
-              'assets/images/dummy image.jpg',
+              imagePath,
               width: 140,
               height: 140,
               fit: BoxFit.cover,

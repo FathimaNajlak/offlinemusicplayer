@@ -109,7 +109,7 @@ void addSongToPlaylistAndShowSnackbar(
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
         content: const Text(
-          'The song is already added to the playlist',
+          'This song is already added to the playlist',
           style: TextStyle(color: Colors.black),
         ),
         backgroundColor: Colors.red,
