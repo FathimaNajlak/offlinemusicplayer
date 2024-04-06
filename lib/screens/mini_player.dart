@@ -102,6 +102,13 @@ class MiniPlayerState extends State<MiniPlayer> {
                           IconButton(
                             onPressed: () async {
                               await assetsAudioPlayer.playOrPause();
+                              final song = playing.audio.audio.metas;
+                              recentadd(AllSongModel(
+                                  name: song.title,
+                                  artist: song.artist,
+                                  duration: playing.audio.duration.inSeconds,
+                                  id: int.parse(song.id!),
+                                  uri: playing.audio.audio.path));
                             },
                             icon: Icon(
                               isPlaying ? Icons.pause : Icons.play_arrow,
