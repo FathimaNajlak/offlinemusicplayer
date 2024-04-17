@@ -38,10 +38,10 @@ class _SinglePlayListScreenState extends State<SinglePlayListScreen> {
             icon: const Icon(
               Icons.arrow_back,
               size: 28,
-              color: Colors.black,
+              color: Colors.white,
             ),
           ),
-          backgroundColor: Colors.grey,
+          backgroundColor: Colors.black,
           shape: const RoundedRectangleBorder(
             borderRadius: BorderRadius.vertical(
               bottom: Radius.circular(16),
@@ -50,7 +50,7 @@ class _SinglePlayListScreenState extends State<SinglePlayListScreen> {
           title: Text(
             widget.playlistname,
             style: const TextStyle(
-              color: Colors.black,
+              color: Colors.white,
               fontWeight: FontWeight.bold,
             ),
           ),
@@ -60,7 +60,7 @@ class _SinglePlayListScreenState extends State<SinglePlayListScreen> {
                 showPlaylistSheet(context, widget.playlistname);
               },
               icon: const Icon(Icons.add),
-              color: Colors.black,
+              color: Colors.white,
               iconSize: 28,
             ),
           ],
@@ -74,7 +74,10 @@ class _SinglePlayListScreenState extends State<SinglePlayListScreen> {
                   child: playlistnotifier.value[widget.idx].playlist?.isEmpty ??
                           true
                       ? const Center(
-                          child: Text('please add some songs'),
+                          child: Text(
+                            'please add some songs',
+                            style: TextStyle(color: Colors.white),
+                          ),
                         )
                       : ListView.builder(
                           itemBuilder: (context, index) {
@@ -125,7 +128,8 @@ class _SinglePlayListScreenState extends State<SinglePlayListScreen> {
                                         decoration: BoxDecoration(
                                           borderRadius:
                                               BorderRadius.circular(15),
-                                          color: Colors.grey,
+                                          color: const Color.fromARGB(
+                                              255, 70, 69, 69),
                                         ),
                                         child: ListTile(
                                           title: Text(
@@ -134,7 +138,8 @@ class _SinglePlayListScreenState extends State<SinglePlayListScreen> {
                                                 "song name",
                                             maxLines: 1,
                                             style: const TextStyle(
-                                                fontWeight: FontWeight.bold),
+                                                fontWeight: FontWeight.bold,
+                                                color: Colors.white),
                                           ),
                                           subtitle: Text(
                                             playlistnotifier.value[widget.idx]
@@ -142,27 +147,50 @@ class _SinglePlayListScreenState extends State<SinglePlayListScreen> {
                                                 'unknown',
                                             maxLines: 1,
                                             style: const TextStyle(
-                                                fontWeight: FontWeight.bold),
+                                                fontWeight: FontWeight.bold,
+                                                color: Colors.white),
                                           ),
                                           trailing: PopupMenuButton(
                                             icon: const Icon(Icons.more_vert,
-                                                size: 20, color: Colors.black),
+                                                size: 20,
+                                                color: Color.fromARGB(
+                                                    255, 252, 249, 249)),
                                             itemBuilder:
                                                 (BuildContext context) {
                                               return [
                                                 PopupMenuItem(
                                                   value: 'favorites',
-                                                  child: favoriteChecking(
-                                                          data.id!)
-                                                      ? const Text(
-                                                          'Remove from favorites')
-                                                      : const Text(
-                                                          'Add to favorites'),
+                                                  child:
+                                                      favoriteChecking(data.id!)
+                                                          ? const Text(
+                                                              'Remove from favorites',
+                                                              style: TextStyle(
+                                                                  color: Color
+                                                                      .fromARGB(
+                                                                          255,
+                                                                          29,
+                                                                          28,
+                                                                          28)),
+                                                            )
+                                                          : const Text(
+                                                              'Add to favorites',
+                                                              style: TextStyle(
+                                                                  color: Color
+                                                                      .fromARGB(
+                                                                          255,
+                                                                          39,
+                                                                          38,
+                                                                          38)),
+                                                            ),
                                                 ),
                                                 const PopupMenuItem(
                                                   value: 'delete',
                                                   child: Text(
-                                                      'Delete from playlist'),
+                                                    'Delete from playlist',
+                                                    style: TextStyle(
+                                                        color: Color.fromARGB(
+                                                            255, 26, 25, 25)),
+                                                  ),
                                                 ),
                                               ];
                                             },
@@ -192,7 +220,7 @@ class _SinglePlayListScreenState extends State<SinglePlayListScreen> {
                                                               'Cancel',
                                                               style: TextStyle(
                                                                   color: Colors
-                                                                      .black),
+                                                                      .white),
                                                             ),
                                                           ),
                                                           TextButton(
@@ -216,7 +244,7 @@ class _SinglePlayListScreenState extends State<SinglePlayListScreen> {
                                                                     'Song is removed from favorites successfully',
                                                                     style: TextStyle(
                                                                         color: Colors
-                                                                            .black),
+                                                                            .white),
                                                                   ),
                                                                   backgroundColor:
                                                                       Colors
@@ -234,7 +262,7 @@ class _SinglePlayListScreenState extends State<SinglePlayListScreen> {
                                                               'Remove',
                                                               style: TextStyle(
                                                                   color: Colors
-                                                                      .black),
+                                                                      .white),
                                                             ),
                                                           ),
                                                         ],
@@ -254,7 +282,7 @@ class _SinglePlayListScreenState extends State<SinglePlayListScreen> {
                                                         'Song added to favorites successfully',
                                                         style: TextStyle(
                                                             color:
-                                                                Colors.black),
+                                                                Colors.white),
                                                       ),
                                                       backgroundColor:
                                                           Colors.green,
@@ -288,7 +316,7 @@ class _SinglePlayListScreenState extends State<SinglePlayListScreen> {
                                                             'Cancel',
                                                             style: TextStyle(
                                                                 color: Colors
-                                                                    .black),
+                                                                    .white),
                                                           ),
                                                         ),
                                                         TextButton(
@@ -306,7 +334,7 @@ class _SinglePlayListScreenState extends State<SinglePlayListScreen> {
                                                             'Remove',
                                                             style: TextStyle(
                                                                 color: Colors
-                                                                    .black),
+                                                                    .white),
                                                           ),
                                                         ),
                                                       ],
@@ -332,7 +360,7 @@ class _SinglePlayListScreenState extends State<SinglePlayListScreen> {
             );
           },
         ),
-        backgroundColor: const Color.fromARGB(255, 236, 232, 220),
+        backgroundColor: const Color.fromARGB(255, 14, 13, 13),
         bottomSheet: const MiniPlayer(),
       ),
     );
@@ -346,7 +374,7 @@ showPlaylistSheet(BuildContext context, String playlistname) {
       return ClipRRect(
         borderRadius: BorderRadius.circular(16),
         child: Container(
-          color: const Color.fromARGB(255, 236, 232, 220),
+          color: Color.fromARGB(255, 63, 63, 61),
           child: Padding(
             padding: const EdgeInsets.all(15.0),
             child: ListView.builder(
@@ -386,7 +414,7 @@ showPlaylistSheet(BuildContext context, String playlistname) {
                             width: double.infinity,
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(15),
-                              color: Colors.grey,
+                              color: Color.fromARGB(255, 108, 105, 105),
                             ),
                             child: ListTile(
                               title: SizedBox(
@@ -395,6 +423,7 @@ showPlaylistSheet(BuildContext context, String playlistname) {
                                   allSongs[index].name!,
                                   style: const TextStyle(
                                     fontWeight: FontWeight.bold,
+                                    color: Colors.white,
                                   ),
                                   maxLines: 1,
                                 ),
@@ -404,7 +433,8 @@ showPlaylistSheet(BuildContext context, String playlistname) {
                                 child: Text(
                                   allSongs[index].artist ?? 'unknown',
                                   style: const TextStyle(
-                                      fontWeight: FontWeight.bold),
+                                      fontWeight: FontWeight.bold,
+                                      color: Colors.white),
                                   maxLines: 1,
                                 ),
                               ),

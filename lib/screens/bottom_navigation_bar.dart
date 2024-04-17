@@ -8,21 +8,21 @@ final ValueNotifier<int> _currentIndex = ValueNotifier(0);
 class BottomNaviScreen extends StatelessWidget {
   BottomNaviScreen({super.key});
 
-  final screen = [
+  final List<Widget> screens = [
     const ScreenHome(),
     const MyFavoritesScreen(),
-    PlaylistScreen()
+    const PlaylistScreen()
   ];
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color.fromARGB(255, 236, 232, 220),
+      backgroundColor: const Color.fromARGB(255, 6, 5, 0),
       body: SafeArea(
         child: ValueListenableBuilder(
           valueListenable: _currentIndex,
           builder: (context, updatedIndex, child) {
-            return screen[updatedIndex];
+            return screens[updatedIndex];
           },
         ),
       ),
@@ -34,32 +34,35 @@ class BottomNaviScreen extends StatelessWidget {
           valueListenable: _currentIndex,
           builder: (BuildContext context, int updatedindex, child) {
             return BottomNavigationBar(
-              selectedItemColor: Colors.black,
-              unselectedItemColor: Colors.black54,
-              currentIndex: updatedindex,
-              backgroundColor: Colors.grey,
+              selectedItemColor: Colors.white,
+              unselectedItemColor: Colors.grey,
+              backgroundColor: Colors.black,
               onTap: (index) {
                 _currentIndex.value = index;
               },
+              currentIndex: updatedindex,
               items: const [
                 BottomNavigationBarItem(
-                    icon: Icon(
-                      Icons.home,
-                      size: 28,
-                    ),
-                    label: ''),
+                  icon: Icon(
+                    Icons.home,
+                    size: 28,
+                  ),
+                  label: '',
+                ),
                 BottomNavigationBarItem(
-                    icon: Icon(
-                      Icons.favorite,
-                      size: 28,
-                    ),
-                    label: ''),
+                  icon: Icon(
+                    Icons.favorite,
+                    size: 28,
+                  ),
+                  label: '',
+                ),
                 BottomNavigationBarItem(
-                    icon: Icon(
-                      Icons.playlist_add,
-                      size: 28,
-                    ),
-                    label: ''),
+                  icon: Icon(
+                    Icons.playlist_add,
+                    size: 28,
+                  ),
+                  label: '',
+                ),
               ],
             );
           },

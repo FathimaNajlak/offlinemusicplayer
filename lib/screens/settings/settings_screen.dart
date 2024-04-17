@@ -17,7 +17,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
-          backgroundColor: Colors.grey,
+          backgroundColor: const Color.fromARGB(255, 26, 26, 26),
           shape: const RoundedRectangleBorder(
             borderRadius: BorderRadius.vertical(
               bottom: Radius.circular(16),
@@ -25,7 +25,9 @@ class _SettingsScreenState extends State<SettingsScreen> {
           ),
           title: const Text(
             'Settings',
-            style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
+            style: TextStyle(
+                color: Color.fromARGB(255, 247, 243, 243),
+                fontWeight: FontWeight.bold),
           ),
           leading: IconButton(
             onPressed: () {
@@ -34,77 +36,62 @@ class _SettingsScreenState extends State<SettingsScreen> {
             icon: const Icon(
               Icons.arrow_back,
               size: 28,
-              color: Colors.black,
+              color: Color.fromARGB(255, 234, 233, 233),
             ),
           ),
         ),
         body: Column(
           children: [
             ListTile(
-              title: const Text('Share The App'),
-              trailing: IconButton(
-                onPressed: () {
-                  // _shareApp(); // Call the share method when the button is pressed
-                },
-                icon: const Icon(Icons.share),
-              ),
-            ),
-            ListTile(
               title: const Text('Privacy Policy'),
-              trailing: IconButton(
-                onPressed: () {
-                  {
-                    Navigator.of(context).push(
-                      MaterialPageRoute(
-                        builder: (context) => const PrivacyPolicyScreen(),
-                      ),
-                    );
-                  }
-                },
-                icon: const Icon(Icons.privacy_tip),
+              textColor: Colors.white,
+              trailing: Icon(
+                Icons
+                    .privacy_tip_outlined, // Changed to outlined privacy tip icon
+                color: Colors.white,
               ),
+              onTap: () {
+                Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (context) => const PrivacyPolicyScreen(),
+                  ),
+                );
+              },
             ),
             ListTile(
               title: const Text('Terms & Conditions'),
-              trailing: IconButton(
-                onPressed: () {
-                  {
-                    Navigator.of(context).push(
-                      MaterialPageRoute(
-                        builder: (context) => const TermsAndConditionsScreen(),
-                      ),
-                    );
-                  }
-                },
-                icon: const Icon(Icons.arrow_forward_ios),
+              textColor: Colors.white,
+              trailing: Icon(
+                Icons.article_outlined, // Changed to outlined article icon
+                color: Colors.white,
               ),
+              onTap: () {
+                Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (context) => const TermsAndConditionsScreen(),
+                  ),
+                );
+              },
             ),
             ListTile(
               title: const Text('About Us'),
-              trailing: IconButton(
-                onPressed: () {
-                  {
-                    Navigator.of(context).push(
-                      MaterialPageRoute(
-                        builder: (context) => const AboutUsScreen(),
-                      ),
-                    );
-                  }
-                },
-                icon: const Icon(Icons.arrow_forward_ios),
+              textColor: Colors.white,
+              trailing: Icon(
+                Icons.info_outline, // Changed to outlined info icon
+                color: Colors.white,
               ),
+              onTap: () {
+                Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (context) => const AboutUsScreen(),
+                  ),
+                );
+              },
             ),
           ],
         ),
-        backgroundColor: const Color.fromARGB(255, 236, 232, 220),
+        backgroundColor: const Color.fromARGB(255, 29, 29, 29),
       ),
     );
   }
-
-  // Method to show the share dialog with a predefined text
-  // void _shareApp() {
-  //   const String text =
-  //       'https://play.google.com/store/apps/details?id=in.Brototype.MeloVibe';
-  //   Share.share(text);
-  // }
 }

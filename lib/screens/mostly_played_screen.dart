@@ -11,7 +11,7 @@ class MostlyPlayedScreen extends StatelessWidget {
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
-          backgroundColor: Colors.grey,
+          backgroundColor: Colors.black,
           shape: const RoundedRectangleBorder(
             borderRadius: BorderRadius.vertical(
               bottom: Radius.circular(16),
@@ -19,7 +19,7 @@ class MostlyPlayedScreen extends StatelessWidget {
           ),
           title: const Text(
             'Mostly played',
-            style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
+            style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
           ),
           leading: IconButton(
               onPressed: () {
@@ -28,14 +28,14 @@ class MostlyPlayedScreen extends StatelessWidget {
               icon: const Icon(
                 Icons.arrow_back,
                 size: 28,
-                color: Colors.black,
+                color: Colors.white,
               )),
         ),
         body: buildListOfSongs(
             valueListenable: mostlyPlayedNotifier,
             emptyString: 'please play some songs...'),
         bottomSheet: const MiniPlayer(),
-        backgroundColor: const Color.fromARGB(255, 236, 232, 220),
+        backgroundColor: const Color.fromARGB(255, 10, 10, 9),
       ),
     );
   }

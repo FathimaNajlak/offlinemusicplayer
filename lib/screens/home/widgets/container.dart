@@ -1,40 +1,30 @@
 import 'package:flutter/material.dart';
 
-Container containerHome(
-  BuildContext context,
-  String labelText,
-  Widget screenToNavigate,
-  String imagePath,
-) {
-  return Container(
-    padding: const EdgeInsets.all(16.0),
-    child: Column(
-      children: [
-        ClipRRect(
-          borderRadius: BorderRadius.circular(20.0),
-          child: InkWell(
-            onTap: () => Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (context) => screenToNavigate,
-              ),
-            ),
-            child: Image.asset(
-              imagePath,
-              width: 140,
-              height: 140,
-              fit: BoxFit.cover,
-            ),
-          ),
+Widget buttonHome(BuildContext context, String labelText,
+    Widget screenToNavigate, Color color) {
+  return ElevatedButton(
+    onPressed: () => Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => screenToNavigate,
+      ),
+    ),
+    style: ElevatedButton.styleFrom(
+      backgroundColor: color,
+      elevation: 2,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(10),
+      ),
+    ),
+    child: Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 5.0, vertical: 12),
+      child: Text(
+        labelText,
+        style: const TextStyle(
+          fontWeight: FontWeight.bold,
+          color: Colors.white,
         ),
-        const SizedBox(
-          height: 10,
-        ),
-        Text(
-          labelText,
-          style: const TextStyle(fontWeight: FontWeight.bold),
-        )
-      ],
+      ),
     ),
   );
 }

@@ -35,7 +35,7 @@ class MiniPlayerState extends State<MiniPlayer> {
           child: Container(
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(35),
-              color: Colors.grey,
+              color: const Color.fromARGB(255, 113, 109, 109),
               border: Border.all(color: Colors.black, width: 2),
             ),
             height: 50,

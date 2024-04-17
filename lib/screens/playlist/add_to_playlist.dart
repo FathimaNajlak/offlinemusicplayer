@@ -29,7 +29,7 @@ class _AddToPlaylistsScreenState extends State<AddToPlaylistsScreen> {
         appBar: AppBar(
           centerTitle: true,
           automaticallyImplyLeading: false,
-          backgroundColor: Colors.grey,
+          backgroundColor: Colors.black,
           shape: const RoundedRectangleBorder(
             borderRadius: BorderRadius.vertical(
               bottom: Radius.circular(16),
@@ -37,7 +37,7 @@ class _AddToPlaylistsScreenState extends State<AddToPlaylistsScreen> {
           ),
           title: const Text(
             'Add To Playlist',
-            style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
+            style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
           ),
           leading: IconButton(
             onPressed: () {
@@ -46,7 +46,7 @@ class _AddToPlaylistsScreenState extends State<AddToPlaylistsScreen> {
             icon: const Icon(
               Icons.arrow_back,
               size: 28,
-              color: Colors.black,
+              color: Colors.white,
             ),
           ),
         ),
@@ -163,7 +163,8 @@ class _AddToPlaylistsScreenState extends State<AddToPlaylistsScreen> {
                                   width: double.infinity,
                                   decoration: BoxDecoration(
                                     borderRadius: BorderRadius.circular(15),
-                                    color: Colors.grey,
+                                    color: const Color.fromARGB(
+                                        255, 113, 112, 112),
                                   ),
                                   child: ListTile(
                                     title: SizedBox(
@@ -171,7 +172,8 @@ class _AddToPlaylistsScreenState extends State<AddToPlaylistsScreen> {
                                       child: Text(
                                         value[index].playListName ?? 'name',
                                         style: const TextStyle(
-                                            fontWeight: FontWeight.bold),
+                                            fontWeight: FontWeight.bold,
+                                            color: Colors.white),
                                         maxLines: 1,
                                       ),
                                     ),
@@ -190,7 +192,7 @@ class _AddToPlaylistsScreenState extends State<AddToPlaylistsScreen> {
             );
           },
         ),
-        backgroundColor: const Color.fromARGB(255, 236, 232, 220),
+        backgroundColor: Color.fromARGB(255, 72, 72, 70),
         bottomSheet: const MiniPlayer(),
       ),
     );

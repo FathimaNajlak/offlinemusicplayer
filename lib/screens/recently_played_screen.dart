@@ -9,7 +9,6 @@ import 'package:podcastapp/model/song_model.dart';
 import 'package:podcastapp/screens/mini_player.dart';
 import 'package:podcastapp/screens/nowplaying_screen.dart';
 import 'package:podcastapp/screens/playlist/add_to_playlist.dart';
-import 'package:podcastapp/screens/splash_screen.dart';
 
 class RecentlyPlayedScreen extends StatelessWidget {
   const RecentlyPlayedScreen({super.key});
@@ -19,7 +18,7 @@ class RecentlyPlayedScreen extends StatelessWidget {
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
-          backgroundColor: Colors.grey,
+          backgroundColor: Colors.black,
           shape: const RoundedRectangleBorder(
             borderRadius: BorderRadius.vertical(
               bottom: Radius.circular(16),
@@ -27,7 +26,7 @@ class RecentlyPlayedScreen extends StatelessWidget {
           ),
           title: const Text(
             'Recently Played',
-            style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
+            style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
           ),
           leading: IconButton(
             onPressed: () {
@@ -36,23 +35,25 @@ class RecentlyPlayedScreen extends StatelessWidget {
             icon: const Icon(
               Icons.arrow_back,
               size: 28,
-              color: Colors.black,
+              color: Colors.white,
             ),
           ),
         ),
         body: buildListOfSongs(
-            valueListenable: recentlyPlayedNotifier,
-            emptyString: 'please play some songs...'),
+          valueListenable: recentlyPlayedNotifier,
+          emptyString: 'please play some songs...',
+        ),
         bottomSheet: const MiniPlayer(),
-        backgroundColor: const Color.fromARGB(255, 236, 232, 220),
+        backgroundColor: const Color.fromARGB(255, 11, 11, 11),
       ),
     );
   }
 }
 
-Row buildListOfSongs(
-    {required ValueListenable<List<AllSongModel>> valueListenable,
-    required String emptyString}) {
+Row buildListOfSongs({
+  required ValueListenable<List<AllSongModel>> valueListenable,
+  required String emptyString,
+}) {
   return Row(
     children: [
       Expanded(
@@ -61,194 +62,181 @@ Row buildListOfSongs(
           builder: (context, value, child) {
             if (valueListenable.value.isEmpty) {
               return Center(
-                child: Text(emptyString),
+                child: Text(
+                  emptyString,
+                  style: const TextStyle(
+                    color: Colors.white,
+                  ),
+                ),
               );
             } else {
               return ListView.builder(
-                  itemBuilder: (context, index) {
-                    return Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Row(
-                        children: [
-                          ClipRRect(
-                            borderRadius: BorderRadius.circular(16),
-                            child: QueryArtworkWidget(
-                                artworkClipBehavior: Clip.none,
-                                artworkHeight: 70,
-                                artworkWidth: 70,
-                                nullArtworkWidget: Image.asset(
-                                  'assets/images/mostlyplayed.jpg',
-                                  fit: BoxFit.cover,
-                                  width: 70,
-                                  height: 70,
-                                ),
-                                id: valueListenable.value[index].id!,
-                                type: ArtworkType.AUDIO),
+                itemBuilder: (context, index) {
+                  return Padding(
+                    padding: const EdgeInsets.all(4.0),
+                    child: Card(
+                      color: Colors.grey[900],
+                      child: ListTile(
+                        contentPadding: const EdgeInsets.all(4.0),
+                        onTap: () {
+                          recentadd(valueListenable.value[index]);
+                          mostplayedadd(valueListenable.value[index]);
+                          audioConverter(valueListenable.value, index);
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => NowPlayingScreen(
+                                song: valueListenable.value[index],
+                                songId: valueListenable.value[index].id!,
+                              ),
+                            ),
+                          );
+                        },
+                        leading: ClipRRect(
+                          borderRadius: BorderRadius.circular(16),
+                          child: QueryArtworkWidget(
+                            artworkClipBehavior: Clip.none,
+                            artworkHeight: 70,
+                            artworkWidth: 70,
+                            nullArtworkWidget: Image.asset(
+                              'assets/images/mostlyplayed.jpg',
+                              fit: BoxFit.cover,
+                              width: 70,
+                              height: 70,
+                            ),
+                            id: valueListenable.value[index].id!,
+                            type: ArtworkType.AUDIO,
                           ),
-                          const SizedBox(
-                            width: 8,
+                        ),
+                        title: Text(
+                          valueListenable.value[index].name!,
+                          style: const TextStyle(
+                            fontWeight: FontWeight.bold,
+                            color: Colors.white,
                           ),
-                          Expanded(
-                            child: InkWell(
-                              onTap: () {
-                                recentadd(valueListenable.value[index]);
-                                mostplayedadd(valueListenable.value[index]);
-                                audioConverter(valueListenable.value, index);
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (context) => NowPlayingScreen(
-                                      song: valueListenable.value[index],
-                                      songId: valueListenable.value[index].id!,
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
+                        ),
+                        subtitle: Text(
+                          valueListenable.value[index].artist ?? 'unknown',
+                          style: const TextStyle(
+                            fontWeight: FontWeight.bold,
+                            color: Colors.white,
+                          ),
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
+                        ),
+                        trailing: PopupMenuButton(
+                          icon: const Icon(
+                            Icons.more_vert,
+                            size: 20,
+                            color: Colors.white,
+                          ),
+                          itemBuilder: (BuildContext context) {
+                            return [
+                              PopupMenuItem(
+                                value: 'favorites',
+                                child: favoriteNotifier.value.contains(
+                                  valueListenable.value[index],
+                                )
+                                    ? const Text('Remove from favorites')
+                                    : const Text('Add to favorites'),
+                              ),
+                              const PopupMenuItem(
+                                value: 'playlist',
+                                child: Text('Add to playlist'),
+                              ),
+                            ];
+                          },
+                          onSelected: (String value) {
+                            if (value == 'favorites') {
+                              if (favoriteNotifier.value.contains(
+                                valueListenable.value[index],
+                              )) {
+                                showDialog(
+                                  context: context,
+                                  builder: (BuildContext context) {
+                                    return AlertDialog(
+                                      title: const Text('Confirmation'),
+                                      content: const Text(
+                                        'Are you sure you want to remove the song from favorites?',
+                                      ),
+                                      actions: [
+                                        TextButton(
+                                          onPressed: () {
+                                            Navigator.of(context).pop();
+                                          },
+                                          child: const Text(
+                                            'Cancel',
+                                            style:
+                                                TextStyle(color: Colors.white),
+                                          ),
+                                        ),
+                                        TextButton(
+                                          onPressed: () {
+                                            removeFromFav(valueListenable
+                                                .value[index].id!);
+                                            Navigator.of(context).pop();
+                                            ScaffoldMessenger.of(context)
+                                                .showSnackBar(
+                                              SnackBar(
+                                                content: const Text(
+                                                  'Song is removed from favorites successfully',
+                                                  style: TextStyle(
+                                                      color: Colors.white),
+                                                ),
+                                                backgroundColor: Colors.red,
+                                                shape: RoundedRectangleBorder(
+                                                  borderRadius:
+                                                      BorderRadius.circular(8),
+                                                ),
+                                              ),
+                                            );
+                                          },
+                                          child: const Text(
+                                            'Remove',
+                                            style:
+                                                TextStyle(color: Colors.white),
+                                          ),
+                                        ),
+                                      ],
+                                    );
+                                  },
+                                );
+                              } else {
+                                addToFavorites(
+                                    valueListenable.value[index].id!);
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                  SnackBar(
+                                    content: const Text(
+                                      'Song added to favorites successfully',
+                                      style: TextStyle(color: Colors.white),
+                                    ),
+                                    backgroundColor: Colors.green,
+                                    shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(8),
                                     ),
                                   ),
                                 );
-                              },
-                              child: Container(
-                                height: 70,
-                                width: double.infinity,
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(15),
-                                ),
-                                child: ListTile(
-                                  title: Text(
-                                    valueListenable.value[index].name!,
-                                    style: const TextStyle(
-                                        fontWeight: FontWeight.bold),
-                                    maxLines: 1,
-                                  ),
-                                  subtitle: Text(
-                                      valueListenable.value[index].artist ??
-                                          'unknown',
-                                      style: const TextStyle(
-                                          fontWeight: FontWeight.bold),
-                                      maxLines: 1),
-                                  trailing: PopupMenuButton(
-                                    icon: const Icon(
-                                      Icons.more_vert,
-                                      size: 20,
-                                      color: Colors.black,
-                                    ),
-                                    itemBuilder: (BuildContext context) {
-                                      return [
-                                        PopupMenuItem(
-                                          value: 'favorites',
-                                          child: favoriteNotifier.value
-                                                  .contains(valueListenable
-                                                      .value[index])
-                                              ? const Text(
-                                                  'Remove from favorites')
-                                              : const Text('Add to favorites'),
-                                        ),
-                                        const PopupMenuItem(
-                                          value: 'playlist',
-                                          child: Text('Add to playlist'),
-                                        ),
-                                      ];
-                                    },
-                                    onSelected: (String value) {
-                                      if (value == 'favorites') {
-                                        if (favoriteNotifier.value.contains(
-                                            valueListenable.value[index])) {
-                                          showDialog(
-                                            context: context,
-                                            builder: (BuildContext context) {
-                                              return AlertDialog(
-                                                title:
-                                                    const Text('Confirmation'),
-                                                content: const Text(
-                                                    'Are you sure you want to remove the song from favorites?'),
-                                                actions: [
-                                                  TextButton(
-                                                    onPressed: () {
-                                                      Navigator.of(context)
-                                                          .pop();
-                                                    },
-                                                    child: const Text(
-                                                      'Cancel',
-                                                      style: TextStyle(
-                                                          color: Colors.black),
-                                                    ),
-                                                  ),
-                                                  TextButton(
-                                                    onPressed: () {
-                                                      removeFromFav(
-                                                          allSongs[index].id!);
-                                                      Navigator.of(context)
-                                                          .pop();
-                                                      ScaffoldMessenger.of(
-                                                              context)
-                                                          .showSnackBar(
-                                                        SnackBar(
-                                                          content: const Text(
-                                                            'Song is removed from favorites successfully',
-                                                            style: TextStyle(
-                                                                color: Colors
-                                                                    .black),
-                                                          ),
-                                                          backgroundColor:
-                                                              Colors.red,
-                                                          shape:
-                                                              RoundedRectangleBorder(
-                                                            borderRadius:
-                                                                BorderRadius
-                                                                    .circular(
-                                                                        8),
-                                                          ),
-                                                        ),
-                                                      );
-                                                    },
-                                                    child: const Text(
-                                                      'Remove',
-                                                      style: TextStyle(
-                                                          color: Colors.black),
-                                                    ),
-                                                  ),
-                                                ],
-                                              );
-                                            },
-                                          );
-                                        } else {
-                                          addToFavorites(
-                                              valueListenable.value[index].id!);
-                                          ScaffoldMessenger.of(context)
-                                              .showSnackBar(
-                                            SnackBar(
-                                              content: const Text(
-                                                'Song added to favorites successfully',
-                                                style: TextStyle(
-                                                    color: Colors.black),
-                                              ),
-                                              backgroundColor: Colors.green,
-                                              shape: RoundedRectangleBorder(
-                                                borderRadius:
-                                                    BorderRadius.circular(8),
-                                              ),
-                                            ),
-                                          );
-                                        }
-                                      } else if (value == 'playlist') {
-                                        Navigator.push(
-                                          context,
-                                          MaterialPageRoute(
-                                            builder: (context) =>
-                                                AddToPlaylistsScreen(
-                                                    song: valueListenable
-                                                        .value[index]),
-                                          ),
-                                        );
-                                      }
-                                    },
+                              }
+                            } else if (value == 'playlist') {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => AddToPlaylistsScreen(
+                                    song: valueListenable.value[index],
                                   ),
                                 ),
-                              ),
-                            ),
-                          ),
-                        ],
+                              );
+                            }
+                          },
+                        ),
                       ),
-                    );
-                  },
-                  itemCount: valueListenable.value.length);
+                    ),
+                  );
+                },
+                itemCount: valueListenable.value.length,
+              );
             }
           },
         ),

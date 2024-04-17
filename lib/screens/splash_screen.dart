@@ -16,13 +16,13 @@ class SplashScreen extends StatelessWidget {
           Padding(
               padding: const EdgeInsets.only(bottom: 40),
               child: Image.asset(
-                'assets/images/EchoPodsIcon.png',
-                height: 200,
-                width: 200,
+                'assets/images/icon.png',
+                height: 300,
+                width: 300,
               )),
         ]),
       ),
-      backgroundColor: const Color.fromARGB(255, 2, 22, 39),
+      backgroundColor: Colors.white,
     );
   }
 
