@@ -41,7 +41,7 @@ class _SinglePlayListScreenState extends State<SinglePlayListScreen> {
               color: Colors.white,
             ),
           ),
-          backgroundColor: Colors.black,
+          backgroundColor: Color.fromARGB(255, 44, 79, 48),
           shape: const RoundedRectangleBorder(
             borderRadius: BorderRadius.vertical(
               bottom: Radius.circular(16),
@@ -128,8 +128,8 @@ class _SinglePlayListScreenState extends State<SinglePlayListScreen> {
                                         decoration: BoxDecoration(
                                           borderRadius:
                                               BorderRadius.circular(15),
-                                          color: const Color.fromARGB(
-                                              255, 70, 69, 69),
+                                          color:
+                                              Color.fromARGB(255, 60, 73, 60),
                                         ),
                                         child: ListTile(
                                           title: Text(
@@ -360,7 +360,7 @@ class _SinglePlayListScreenState extends State<SinglePlayListScreen> {
             );
           },
         ),
-        backgroundColor: const Color.fromARGB(255, 14, 13, 13),
+        backgroundColor: Color.fromARGB(255, 40, 54, 38),
         bottomSheet: const MiniPlayer(),
       ),
     );
@@ -374,7 +374,7 @@ showPlaylistSheet(BuildContext context, String playlistname) {
       return ClipRRect(
         borderRadius: BorderRadius.circular(16),
         child: Container(
-          color: Color.fromARGB(255, 63, 63, 61),
+          color: Color.fromARGB(255, 40, 54, 38),
           child: Padding(
             padding: const EdgeInsets.all(15.0),
             child: ListView.builder(
@@ -414,7 +414,7 @@ showPlaylistSheet(BuildContext context, String playlistname) {
                             width: double.infinity,
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(15),
-                              color: Color.fromARGB(255, 108, 105, 105),
+                              color: Color.fromARGB(255, 60, 73, 60),
                             ),
                             child: ListTile(
                               title: SizedBox(

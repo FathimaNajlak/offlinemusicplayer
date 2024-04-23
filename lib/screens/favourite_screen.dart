@@ -28,10 +28,10 @@ class _MyFavoritesScreenState extends State<MyFavoritesScreen> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        backgroundColor: Colors.black,
+        backgroundColor: Color.fromARGB(255, 40, 54, 38),
         appBar: AppBar(
           centerTitle: true,
-          backgroundColor: Colors.black,
+          backgroundColor: Color.fromARGB(255, 44, 79, 48),
           shape: const RoundedRectangleBorder(
             borderRadius: BorderRadius.vertical(
               bottom: Radius.circular(16),
@@ -59,7 +59,7 @@ class _MyFavoritesScreenState extends State<MyFavoritesScreen> {
                         padding: const EdgeInsets.symmetric(
                             horizontal: 4.0, vertical: 2.0),
                         child: Card(
-                          color: Colors.grey[900],
+                          color: Color.fromARGB(255, 60, 73, 60),
                           child: ListTile(
                             contentPadding: const EdgeInsets.all(4.0),
                             onTap: () {

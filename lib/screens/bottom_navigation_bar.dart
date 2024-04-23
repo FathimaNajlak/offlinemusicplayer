@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:podcastapp/Screens/home/home.dart';
 import 'package:podcastapp/screens/favourite_screen.dart';
 import 'package:podcastapp/screens/playlist/playlist_screen.dart';
-import 'home/home.dart';
 
 final ValueNotifier<int> _currentIndex = ValueNotifier(0);
 
@@ -17,7 +17,7 @@ class BottomNaviScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color.fromARGB(255, 6, 5, 0),
+      backgroundColor: Color.fromARGB(255, 44, 79, 48),
       body: SafeArea(
         child: ValueListenableBuilder(
           valueListenable: _currentIndex,
@@ -36,7 +36,7 @@ class BottomNaviScreen extends StatelessWidget {
             return BottomNavigationBar(
               selectedItemColor: Colors.white,
               unselectedItemColor: Colors.grey,
-              backgroundColor: Colors.black,
+              backgroundColor: Color.fromARGB(255, 44, 79, 48),
               onTap: (index) {
                 _currentIndex.value = index;
               },

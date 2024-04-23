@@ -7,14 +7,14 @@ class TermsAndConditionsScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.black,
+        backgroundColor: Color.fromARGB(255, 44, 79, 48),
         shape: const RoundedRectangleBorder(
           borderRadius: BorderRadius.vertical(
             bottom: Radius.circular(16),
           ),
         ),
         title: const Text(
-          'AudioBliss',
+          'TuneTastic',
           style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
         ),
         leading: IconButton(
@@ -43,7 +43,7 @@ class TermsAndConditionsScreen extends StatelessWidget {
             ),
             SizedBox(height: 16),
             Text(
-              'Please read these Terms and Conditions ("Terms") carefully before using the AudioBliss application ("the App") provided by AudioBliss ("we," "us," or "our"). These Terms govern your access to and use of the App. By using the App, you agree to be bound by these Terms. If you do not agree to these Terms, please refrain from using the App.',
+              'Please read these Terms and Conditions ("Terms") carefully before using the TuneTastic application ("the App") provided by TuneTastic ("we," "us," or "our"). These Terms govern your access to and use of the App. By using the App, you agree to be bound by these Terms. If you do not agree to these Terms, please refrain from using the App.',
               style: TextStyle(
                 fontSize: 18,
                 color: Colors.white,
@@ -60,7 +60,7 @@ class TermsAndConditionsScreen extends StatelessWidget {
             ),
             SizedBox(height: 8),
             Text(
-              'a. The AudioBliss App is intended for personal, non-commercial use only. You may not use the App for any unauthorized or illegal purposes.',
+              'a. The TuneTastic App is intended for personal, non-commercial use only. You may not use the App for any unauthorized or illegal purposes.',
               style: TextStyle(
                 fontSize: 18,
                 color: Colors.white,
@@ -91,14 +91,14 @@ class TermsAndConditionsScreen extends StatelessWidget {
             ),
             SizedBox(height: 8),
             Text(
-              'a. The App, including all its content, features, and functionality, is owned by AudioBliss and is protected by intellectual property laws. You may not copy, modify, distribute, transmit, display, perform, or create derivative works from any part of the App without our prior written consent.',
+              'a. The App, including all its content, features, and functionality, is owned by TuneTastic and is protected by intellectual property laws. You may not copy, modify, distribute, transmit, display, perform, or create derivative works from any part of the App without our prior written consent.',
               style: TextStyle(
                 fontSize: 18,
                 color: Colors.white,
               ),
             ),
             Text(
-              'b. The trademarks, logos, and service marks displayed within the App are the property of AudioBliss or third parties. You are prohibited from using any of these marks without our prior written permission or the permission of the respective owners.',
+              'b. The trademarks, logos, and service marks displayed within the App are the property of TuneTastic or third parties. You are prohibited from using any of these marks without our prior written permission or the permission of the respective owners.',
               style: TextStyle(
                 fontSize: 18,
                 color: Colors.white,
@@ -115,7 +115,7 @@ class TermsAndConditionsScreen extends StatelessWidget {
             ),
             SizedBox(height: 8),
             Text(
-              'a. The App may allow you to upload, post, or submit user-generated content, such as comments or reviews. By submitting such content, you grant AudioBliss a worldwide, royalty-free, non-exclusive, perpetual, irrevocable, and sublicensable right to use, reproduce, modify, adapt, publish, translate, distribute, and display the content in any media.',
+              'a. The App may allow you to upload, post, or submit user-generated content, such as comments or reviews. By submitting such content, you grant TuneTastic a worldwide, royalty-free, non-exclusive, perpetual, irrevocable, and sublicensable right to use, reproduce, modify, adapt, publish, translate, distribute, and display the content in any media.',
               style: TextStyle(
                 fontSize: 18,
                 color: Colors.white,
@@ -163,7 +163,7 @@ class TermsAndConditionsScreen extends StatelessWidget {
               ),
             ),
             Text(
-              'b. In no event shall AudioBliss, its directors, officers, employees, or agents be liable for any direct, indirect, incidental, special, or consequential damages arising out of or in any way connected with the use of the App or the inability to use the App.',
+              'b. In no event shall TuneTastic, its directors, officers, employees, or agents be liable for any direct, indirect, incidental, special, or consequential damages arising out of or in any way connected with the use of the App or the inability to use the App.',
               style: TextStyle(
                 fontSize: 18,
                 color: Colors.white,
@@ -221,7 +221,7 @@ class TermsAndConditionsScreen extends StatelessWidget {
             ),
             SizedBox(height: 8),
             Text(
-              'a. These Terms constitute the entire agreement between you and AudioBliss regarding the use of the App and supersede any prior or contemporaneous understandings.',
+              'a. These Terms constitute the entire agreement between you and TuneTastic regarding the use of the App and supersede any prior or contemporaneous understandings.',
               style: TextStyle(
                 fontSize: 18,
                 color: Colors.white,
@@ -239,7 +239,7 @@ class TermsAndConditionsScreen extends StatelessWidget {
           ],
         ),
       ),
-      backgroundColor: const Color.fromARGB(255, 17, 17, 16),
+      backgroundColor: Color.fromARGB(255, 40, 54, 38),
     );
   }
 }

@@ -7,7 +7,7 @@ class PrivacyPolicyScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.black,
+        backgroundColor: Color.fromARGB(255, 44, 79, 48),
         shape: const RoundedRectangleBorder(
           borderRadius: BorderRadius.vertical(
             bottom: Radius.circular(16),
@@ -34,7 +34,7 @@ class PrivacyPolicyScreen extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              'At AudioBliss, we are committed to protecting your privacy and ensuring the security of your personal information. This Privacy Policy explains how we collect, use, disclose, and protect your information when you use the AudioBliss application (referred to as "the App") developed using Flutter. By using the App, you consent to the practices described in this Privacy Policy.',
+              'At TuneTastic, we are committed to protecting your privacy and ensuring the security of your personal information. This Privacy Policy explains how we collect, use, disclose, and protect your information when you use the TuneTastic application (referred to as "the App") developed using Flutter. By using the App, you consent to the practices described in this Privacy Policy.',
               style: TextStyle(color: Colors.white),
             ),
             SizedBox(height: 16),
@@ -136,7 +136,7 @@ class PrivacyPolicyScreen extends StatelessWidget {
             ),
             SizedBox(height: 8),
             Text(
-              '- If we believe it is necessary to protect the rights, property, or safety of AudioBliss, our users, or others.',
+              '- If we believe it is necessary to protect the rights, property, or safety of TuneTastic, our users, or others.',
               style: TextStyle(color: Colors.white),
             ),
             SizedBox(height: 8),
@@ -221,7 +221,7 @@ class PrivacyPolicyScreen extends StatelessWidget {
             ),
             SizedBox(height: 16),
             Text(
-              'By using the AudioBliss App, you signify your understanding and acceptance of this Privacy Policy.',
+              'By using the TuneTastic App, you signify your understanding and acceptance of this Privacy Policy.',
               style: TextStyle(
                 fontStyle: FontStyle.italic,
                 color: Colors.white,
@@ -230,7 +230,7 @@ class PrivacyPolicyScreen extends StatelessWidget {
           ],
         ),
       ),
-      backgroundColor: const Color.fromARGB(255, 18, 18, 18),
+      backgroundColor: Color.fromARGB(255, 40, 54, 38),
     );
   }
 }

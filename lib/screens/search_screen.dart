@@ -29,10 +29,10 @@ class _SearchScreenState extends State<SearchScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.black,
+      backgroundColor: Color.fromARGB(255, 40, 54, 38),
       appBar: AppBar(
         automaticallyImplyLeading: false,
-        backgroundColor: Colors.black,
+        backgroundColor: Color.fromARGB(255, 44, 79, 48),
         shape: const RoundedRectangleBorder(
           borderRadius: BorderRadius.vertical(
             bottom: Radius.circular(16),
@@ -112,7 +112,7 @@ class _SearchScreenState extends State<SearchScreen> {
                       return Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 4.0),
                         child: Card(
-                          color: Colors.grey[900],
+                          color: Color.fromARGB(255, 60, 73, 60),
                           child: ListTile(
                             contentPadding: EdgeInsets.symmetric(
                                 vertical: 4.0, horizontal: 8.0),

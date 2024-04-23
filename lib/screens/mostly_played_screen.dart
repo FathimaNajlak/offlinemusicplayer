@@ -11,7 +11,7 @@ class MostlyPlayedScreen extends StatelessWidget {
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
-          backgroundColor: Colors.black,
+          backgroundColor: Color.fromARGB(255, 44, 79, 48),
           shape: const RoundedRectangleBorder(
             borderRadius: BorderRadius.vertical(
               bottom: Radius.circular(16),
@@ -35,7 +35,7 @@ class MostlyPlayedScreen extends StatelessWidget {
             valueListenable: mostlyPlayedNotifier,
             emptyString: 'please play some songs...'),
         bottomSheet: const MiniPlayer(),
-        backgroundColor: const Color.fromARGB(255, 10, 10, 9),
+        backgroundColor: Color.fromARGB(255, 40, 54, 38),
       ),
     );
   }
