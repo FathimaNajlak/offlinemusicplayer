@@ -1,9 +1,13 @@
+import 'dart:ffi';
+
 import 'package:flutter/material.dart';
 import 'package:on_audio_query/on_audio_query.dart';
 import 'package:podcastapp/Screens/splash_screen.dart';
 import 'package:podcastapp/functions/audio_converter_function.dart';
 import 'package:podcastapp/functions/favourite_functions.dart';
+import 'package:podcastapp/functions/mostly_played.dart';
 import 'package:podcastapp/functions/playlist.dart';
+import 'package:podcastapp/functions/recently_played.dart';
 import 'package:podcastapp/model/playlist_model.dart';
 import 'package:podcastapp/screens/mini_player.dart';
 import 'package:podcastapp/screens/nowplaying_screen.dart';
@@ -108,6 +112,11 @@ class _SinglePlayListScreenState extends State<SinglePlayListScreen> {
                                   Expanded(
                                     child: InkWell(
                                       onTap: () {
+                                        final song =
+                                            widget.listIndex.playlist![index];
+                                        recentadd(song);
+                                        mostplayedadd(song);
+
                                         audioConverter(
                                             widget.listIndex.playlist!, index);
                                         Navigator.of(context).push(
